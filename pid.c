@@ -10,7 +10,7 @@ void Init_pidStruct(pidStruct * s, float kp, float ki) {
 
 float Calc_pidStruct(pidStruct * s, float feedback) {
     float error = s->reference - feedback ;
-    s->sum_ki = s->ki * error ;
+    s->sum_ki += s->ki * error ;
     s->output = s->sum_ki + s->kp * error ;
     return s->output ;
 }

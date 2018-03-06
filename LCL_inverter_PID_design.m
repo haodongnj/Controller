@@ -84,6 +84,3 @@ bode(T_damp1, 'r');
 hold on ;
 bode(T_damp2, 'g')
 hold off ;
-
-
-
