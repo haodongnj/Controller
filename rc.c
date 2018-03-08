@@ -1,6 +1,6 @@
 #include "rc.h"
 
-float rc_buffer[200] ;
+float rc_buffer[NUM_SAMPLE_PER_CYCLE] ;
 
 void Init_RC(void){
     int i = 0 ;
