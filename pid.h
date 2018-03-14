@@ -2,6 +2,8 @@
 #define PID_H
 #define PID_KD_ENABLED 0
 
+#define T_CONTROL 0.0001f // 10kHz control period
+
 typedef struct {
     float kp ;
     float ki ;
