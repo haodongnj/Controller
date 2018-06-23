@@ -1,3 +1,10 @@
+/*************************************************************
+Author: Hao Dong
+Date: 2018.06.23
+Email:  hao.dong.nanjing@gmail.com
+*************************************************************/
+
+// This program is only a test demo on PC.
 #include "pr.h"
 #include "math.h"
 #include "stdio.h"

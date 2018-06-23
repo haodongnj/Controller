@@ -1,3 +1,11 @@
+/*************************************************************
+Author: Hao Dong
+Date: 2018.06.23
+Email:  hao.dong.nanjing@gmail.com
+Note:   This is just a baseline implementation of simple 
+        Repetitive Controller
+*************************************************************/
+
 #include "rc.h"
 
 float rc_buffer[NUM_SAMPLE_PER_CYCLE] ;

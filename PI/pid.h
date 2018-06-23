@@ -1,3 +1,9 @@
+/*************************************************************
+Author: Hao Dong
+Date: 2018.06.23
+Email:  hao.dong.nanjing@gmail.com
+*************************************************************/
+
 #ifndef PID_H
 #define PID_H
 #define PID_KD_ENABLED 0

@@ -1,9 +1,8 @@
-/*
- * pr.h
- *
- *  Created on: 2018Äê5ÔÂ8ÈÕ
- *      Author: donghao
- */
+/*************************************************************
+Author: Hao Dong
+Date: 2018.06.23
+Email:  hao.dong.nanjing@gmail.com
+*************************************************************/
 
 #ifndef ALGORITHM_CONTROLLER_PR_H_
 #define ALGORITHM_CONTROLLER_PR_H_
