@@ -4,9 +4,9 @@
 #include "filter.h"
 
 #define NUMBER_SAMPLES_PERIOD 200U
-#define SIMULINK_DEBUG 1 
+#define SIMULINK_DEBUG 0
 #define SLICE_ANGLE 0.0314159265359f
-#define DOUBLE_PI  6.28318530718f
+#define DOUBLE_PI_RC  6.28318530718f
 
 typedef struct irc_structure{
     double rc_input_buffer[NUMBER_SAMPLES_PERIOD];
@@ -29,6 +29,9 @@ void irc_init_simulink();
 double irc_update_simulink(double error, double phase);
 
 #endif
+
+void irc_init(irc_struct *,  double *, double *, int);
+double irc_update(irc_struct *, double error, double phase);
 
 double left_slice(double cur_phase);
 int left_index(double cur_phase);
