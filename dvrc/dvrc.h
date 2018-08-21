@@ -25,17 +25,17 @@ typedef struct dvrc_structure{
 
     int lead_steps ;
     filter_s * pfs ;
-    // int delay_steps ;
-
-    //
+    double q_main ;
+    double q_lr ;
 }dvrc_struct ;
 
 #if SIMULINK_DEBUG
 void init_dvrc_simulink() ;
-
 double calc_dvrc_simulink(double phase, double error, int flag_start_calc);
 #endif
 
+int find_varying_delay(dvrc_struct * ps, double cur_phase);
 double compare_phase_angle(double cur_phase, double prev_phase) ;
+int index_move(int cur_index, int steps_to_move);
 
 #endif

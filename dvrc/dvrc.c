@@ -28,21 +28,47 @@ void init_dvrc_simulink(){
     filter_init(p_f_s, num_filter, den_filter, order_filter) ;
     p_dvrc_s->pfs = p_f_s ;
 
+    p_dvrc_s->q_main = 0.9 ;
+    p_dvrc_s->q_lr = (1 - p_dvrc_s->q_main) * 0.5 ;
 }
 
 double calc_dvrc_simulink(double phase, double error, int flag_start_calc){
     int steps_delay = find_varying_delay(p_dvrc_s, phase) ;
+    int index_delay_selected ;
+    double ret_dvrc = 0 ;
 
+    // When in closedloop, RC results
     if( flag_start_calc){
+        // update buffer before the delay 
+        p_dvrc_s->delay_prev_buffer[p_dvrc_s->delay_prev_index] = error + 
+            p_dvrc_s->q_output_buffer[index_move(p_dvrc_s->q_output_index, - p_dvrc_s->lead_steps)] ;
         
+        // update buffer of q filtered buffer:
+        index_delay_selected = index_move(p_dvrc_s->delay_prev_index, -steps_delay) ;
+        ret_dvrc = // Used to store the value just to avoid a extra variable definition.
+            p_dvrc_s->q_output_buffer[index_delay_selected] * p_dvrc_s->q_main + 
+            p_dvrc_s->q_output_buffer[index_move(index_delay_selected, 1)] * p_dvrc_s->q_lr + 
+            p_dvrc_s->q_output_buffer[index_move(index_delay_selected, -1)] * p_dvrc_s->q_lr ;
+
+        p_dvrc_s->q_output_buffer[p_dvrc_s->q_output_index] = ret_dvrc ;
+
+        ret_dvrc = filter_calc(p_dvrc_s->pfs, ret_dvrc) ; // Lowpass filter 
+
+        // update index:
+        p_dvrc_s->q_output_index = index_move(p_dvrc_s->q_output_index, 1);
+        p_dvrc_s->delay_prev_index = index_move(p_dvrc_s->delay_prev_index, 1);
+
     }
 
     p_dvrc_s->phase_buffer[ p_dvrc_s-> phase_index ] = phase ;
     // Update phase index 
     p_dvrc_s->phase_index = index_move(p_dvrc_s->phase_index, 1) ;
 
+    // When in openloop, only phase_buffer and phase_index is updated.
     if(!flag_start_calc){
         return steps_delay ;
+    }else{
+        return ret_dvrc ;
     }
 }
 
@@ -57,18 +83,6 @@ int index_move(int cur_index, int steps_to_move){
     else if( ret_index < 0 ){
         ret_index += MAX_STEPS_FOR_BUFFER ;
     }
-}
-
-
-double phase_diff(double phase, double phase_to_diff){
-    double phase_diff = phase - phase_to_diff ;
-    if(phase_diff < 0){
-        phase_diff += DOUBLE_PI_DVRC ; // in case that phase_diff > (2 * pi)
-    }
-    if(phase_diff > DOUBLE_PI_DVRC){ // Important, do not modify!
-        phase_diff -= DOUBLE_PI_DVRC ;
-    }
-    return phase_diff ;
 }
 
 int find_varying_delay(dvrc_struct * ps, double cur_phase){
