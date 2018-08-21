@@ -1,22 +1,41 @@
 #ifndef DVRC_H
 #define DVRC_H
 
+#include "filter.h"
+#include "math.h"
+
 #define MAX_STEPS_FOR_BUFFER 205 
 #define MIN_STEPS_FOR_BUFFER 196
+#define STEPS_AT_BASE_FREQ 200
+
+#define SLICE_ANGLE 0.031415927
+#define DOUBLE_PI_DVRC 6.28318530718
+#define PI_DVRC 3.14159265359
 
 #define SIMULINK_DEBUG 1 
 
 
 typedef struct dvrc_structure{
     double phase_buffer[MAX_STEPS_FOR_BUFFER] ;
-    double output_buffer[MAX_STEPS_FOR_BUFFER] ;
-    int lead_steps ;
+    int phase_index ;
+    double q_output_buffer[MAX_STEPS_FOR_BUFFER] ;
+    int q_output_index ;
+    double delay_prev_buffer[MAX_STEPS_FOR_BUFFER] ;
+    int delay_prev_index ;
 
+    int lead_steps ;
+    filter_s * pfs ;
+    // int delay_steps ;
+
+    //
 }dvrc_struct ;
 
-
+#if SIMULINK_DEBUG
 void init_dvrc_simulink() ;
 
-double calc_dvrc_simulink() ;
+double calc_dvrc_simulink(double phase, double error, int flag_start_calc);
+#endif
+
+double compare_phase_angle(double cur_phase, double prev_phase) ;
 
 #endif
