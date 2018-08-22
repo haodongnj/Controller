@@ -19,10 +19,10 @@ int main(void){
     init_dvrc_simulink() ;
     printf("Initialization completed!\r\n");
 
-    for( int i = 0 ; i < 1e5 ; i ++){
+    for( int i = 0 ; i < 1e6 ; i ++){
         printf("%d\t", i) ;
         fscanf(fp, "%lf,%lf\r\n", &error, &phase) ;
-        steps_to_see = calc_dvrc_simulink(phase, error, 0) ;
+        steps_to_see = calc_dvrc_simulink(phase, error, 1) ;
         fprintf(fp_out, "%lf\r\n", steps_to_see) ;
     }
 

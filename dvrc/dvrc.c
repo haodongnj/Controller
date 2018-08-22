@@ -21,7 +21,7 @@ void init_dvrc_simulink(){
         p_dvrc_s->q_output_buffer[i] = 0.0 ;
         p_dvrc_s->delay_prev_buffer[i] = 0.0 ;
     }
-    p_dvrc_s->lead_steps = 0 ;
+    p_dvrc_s->lead_steps = 1;
 
     // Setup the coeff of  filter
     filter_init(p_f_s, num_filter, den_filter, order_filter) ;
@@ -43,7 +43,7 @@ double calc_dvrc_simulink(double phase, double error, int flag_start_calc){
             p_dvrc_s->q_output_buffer[index_move(p_dvrc_s->q_output_index, - p_dvrc_s->lead_steps)] ;
         
         // update buffer of q filtered buffer:
-        index_delay_selected = index_move(p_dvrc_s->delay_prev_index, -steps_delay) ;
+        index_delay_selected = index_move(p_dvrc_s->delay_prev_index, -steps_delay + p_dvrc_s->lead_steps) ;
         ret_dvrc = // Used to store the value just to avoid a extra variable definition.
             p_dvrc_s->delay_prev_buffer[index_delay_selected] * p_dvrc_s->q_main + 
             p_dvrc_s->delay_prev_buffer[index_move(index_delay_selected, 1)] * p_dvrc_s->q_lr + 

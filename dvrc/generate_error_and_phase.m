@@ -2,11 +2,11 @@ close all ;
 clear ;
 clc ;
 
-freq = 49.15 ;
+freq = 1e4/200.2  ;
 samples_f = 1e4 / freq ; 
 samples = int32(1e4 / freq);
 
-t = 1e-4:1e-4:10 ; 
+t = 1e-4:1e-4:1e2 ; 
 ph = 2 * pi * freq * t ;
 
 ph = mod(ph, 2*pi) ;
