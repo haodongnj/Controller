@@ -1,27 +1,22 @@
 /*************************************************************
 Author: Hao Dong
 Date: 2018.06.23
-Email:  hao.dong.nanjing@gmail.com
+Email:  hao.dong.nanjing@outlook.com
 *************************************************************/
 
 #ifndef PID_H
 #define PID_H
-#define PID_KD_ENABLED 0
-
-#define T_CONTROL 0.0001f // 10kHz control period
 
 typedef struct {
-    float kp ;
-    float ki ;
-#if PID_KD_ENABLED
-    float kd ;
-#endif
-    float sum_ki ;
-    float output ;
-    float reference ;
+    double kp ;
+    double ki ;
+    double ts ;
+    double sum_ki ;
+    double output ;
+    double reference ;
 } pidStruct;
 
-void Init_pidStruct(pidStruct * s, float, float) ;
-float Calc_pidStruct(pidStruct * s, float reference);
+void Init_pidStruct(pidStruct * s, double kp, double ki, double ts);
+double Calc_pidStruct(pidStruct * s, double reference);
 
 #endif
