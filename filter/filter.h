@@ -1,7 +1,8 @@
-#ifndef ALGORITHM_CONTROLLER_FILTER_H_
-#define ALGORITHM_CONTROLLER_FILTER_H_
+#ifndef FILTER_H_
+#define FILTER_H_
 
-#define MAX_NUMBER_FILTER_COEFFS 4
+// determines the maximum order of filters: MAX_NUMBER_FILTER_COEFFS - 1
+#define MAX_NUMBER_FILTER_COEFFS 4 
 #define MAX_FILTER_ORDER (MAX_NUMBER_FILTER_COEFFS-1)
 
 typedef struct filter_struct{
@@ -16,4 +17,4 @@ typedef struct filter_struct{
 double filter_calc(filter_s* fs, double input);
 void filter_init(filter_s * fs, double * num_c, double * den_c,  int filter_order);
 
-#endif /* ALGORITHM_CONTROLLER_FILTER_H_ */
+#endif
