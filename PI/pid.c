@@ -1,6 +1,5 @@
 /*************************************************************
 Author: Hao Dong
-Date: 2018.06.23
 Email:  hao.dong.nanjing@outlook.com
 *************************************************************/
 
@@ -18,17 +17,20 @@ Email:  hao.dong.nanjing@outlook.com
         G(z) = kp + ---------------
                         z - 1 
 *************************************************************/
-void Init_pidStruct(pidStruct * s, double kp, double ki, double ts) {
+void pid_init(pidStruct * s, float kp, float ki, float ts) {
     s->kp = kp ;
     s->ts = ts ;
     s->ki = ki * ts ;
-    s->sum_ki = 0 ;
-    s->output = 0 ;
-    s->reference = 0 ;
+    s->sum_ki = 0.0f ;
+    s->output = 0.0f ;
+    s->reference = 0.0f ;
 }
 
-double Calc_pidStruct(pidStruct * s, double feedback) {
-    double error = s->reference - feedback ;
+/**
+ * PI controller is really simple, you can implement anti-saturation or other features by yourself
+**/
+float pid_calc(pidStruct * s, float feedback) {
+    float error = s->reference - feedback ;
     s->sum_ki += s->ki * error ;
     s->output = s->sum_ki + s->kp * error ;
     return s->output ;
