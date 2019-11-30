@@ -1,8 +1,8 @@
 #include "filter.h"
 
-double filter_calc(filter_s* fs, double input){
+float filter_calc(filter_s* fs, float input){
     int i = 0 ;
-    double temp = 0.0f ;
+    float temp = 0.0f ;
     for(i = 1 ; i <  fs->number_filter_coeffs ; i ++ ){
         temp += fs->num_coeff[i] * fs->x_buffer[i-1] - fs->den_coeff[i] * fs->y_buffer[i-1] ;
     }
@@ -20,7 +20,7 @@ double filter_calc(filter_s* fs, double input){
     return temp ;
 }
 
-void filter_init(filter_s * fs, double * num_c, double * den_c,  int filter_order){
+void filter_init(filter_s * fs, float * num_c, float * den_c,  int filter_order){
     int i = 0 ;
     fs->filter_order = filter_order ;
     fs->number_filter_coeffs = filter_order + 1 ;
