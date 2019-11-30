@@ -1,6 +1,5 @@
 /*************************************************************
 Author: Hao Dong
-Date: 2018.06.23
 Email:  hao.dong.nanjing@outlook.com
 *************************************************************/
 
@@ -8,15 +7,15 @@ Email:  hao.dong.nanjing@outlook.com
 #define PID_H
 
 typedef struct {
-    double kp ;
-    double ki ;
-    double ts ;
-    double sum_ki ;
-    double output ;
-    double reference ;
+    float kp ;
+    float ki ;
+    float ts ;
+    float sum_ki ;
+    float output ;
+    float reference ;
 } pidStruct;
 
-void Init_pidStruct(pidStruct * s, double kp, double ki, double ts);
-double Calc_pidStruct(pidStruct * s, double reference);
+void pid_init(pidStruct * s, float kp, float ki, float ts);
+float pid_calc(pidStruct * s, float reference);
 
 #endif
