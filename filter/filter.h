@@ -3,7 +3,7 @@
 
 /**
  * Determine the maximum order of filters: MAX_NUMBER_FILTER_COEFFS - 1
- * You can modify this macro definition as you wish 
+ * Modify this macro definition as you need. 
 **/
 #define MAX_NUMBER_FILTER_COEFFS 4 
 #define MAX_FILTER_ORDER (MAX_NUMBER_FILTER_COEFFS-1)
