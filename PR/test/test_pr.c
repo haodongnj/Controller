@@ -10,6 +10,15 @@ Email:  hao.dong.nanjing@outlook.com
 
 #define TS_Control 1e-4 // 100us control period
 
+/**
+ * @brief Test output of the PR controller
+ *      kp :    0.0 
+ *      kr :    10.0
+ *      wi :    2% of wg, 2% * 50 * 2 * 3.14 = 6.28 
+ *      Input : sine signal, 50Hz, with an amplitude of 1 
+ *      Output :    sine signal, 50Hz, with an static amplitude of 10
+ * @return int 
+ */
 int main(void){
     prStruct PR_Test ;
     float output = 0.0f , sin_wave = 0.0f ;

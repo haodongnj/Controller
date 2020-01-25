@@ -3,8 +3,8 @@ Author: Hao Dong
 Email:  hao.dong.nanjing@outlook.com
 *************************************************************/
 
-#ifndef CONTROLLER_PR_H_
-#define CONTROLLER_PR_H_
+#ifndef PR_H
+#define PR_H
 
 typedef struct{
     float kp ;
@@ -19,6 +19,7 @@ typedef struct{
 }prStruct;
 
 void pr_init(prStruct * s, float, float, float, float) ;
+void pr_update_ref(prStruct * s, float ref);
 float pr_calc(prStruct * s, float, float );
 
-#endif /* ALGORITHM_CONTROLLER_PR_H_ */
+#endif
