@@ -1,6 +1,9 @@
 clear all ;
 close all ;
 
+% for octave : 
+pkg load control;
+
 % load data calculated by C code
 data = load('filter_results.txt') ;
 plot( data(:,1), data(:, 2), '--r')
@@ -14,6 +17,6 @@ sin_input = sin(2 * 3.141592654 * 50 * t) ;
 
 hold on ;
 lsim(lp_filter_tf, sin_input, '--g')
-legend( 'C','MATLAB')
+legend( 'C program','OCTAVE/MATLAB')
 
 hold off ;

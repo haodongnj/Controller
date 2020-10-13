@@ -2,7 +2,7 @@
 #include "math.h"
 #include "stdio.h"
 
-#define NUMBER_ITERATIONS 1e4 
+#define NUMBER_ITERATIONS 2e2 
 #define PI 3.141592654f 
 #define TS 1e-4
 
