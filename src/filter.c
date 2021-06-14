@@ -1,38 +1,47 @@
-#include "../include/filter.h"
+#include <filter.h>
 
-float filter_calc(filter_s* fs, float input){
-    int i = 0 ;
-    float temp = 0.0f ;
-    for(i = 1 ; i <  fs->number_filter_coeffs ; i ++ ){
-        temp += fs->num_coeff[i] * fs->x_buffer[i-1] - fs->den_coeff[i] * fs->y_buffer[i-1] ;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+float filter_calc(Filter_t *f, float input) {
+    int i;
+    float temp = 0.0f;
+    for (i = 1; i < f->order + 1; i++) {
+        temp += f->num[i] * f->x_buffer[i - 1] - f->den[i] * f->y_buffer[i - 1];
     }
 
-    temp += fs->num_coeff[0] * input ;
-    temp /= fs->den_coeff[0] ;
+    temp += f->num[0] * input;
+    temp /= f->den[0];
 
-    for(i = fs->filter_order - 1 ; i > 0 ; i -- ){
-        fs->x_buffer[i] = fs->x_buffer[i - 1] ;
-        fs->y_buffer[i] = fs->y_buffer[i - 1] ;
+    for (i = f->order - 1; i > 0; i--) {
+        f->x_buffer[i] = f->x_buffer[i - 1];
+        f->y_buffer[i] = f->y_buffer[i - 1];
     }
-    fs->x_buffer[0] = input ;
-    fs->y_buffer[0] = temp ;
+    f->x_buffer[0] = input;
+    f->y_buffer[0] = temp;
 
-    return temp ;
+    return temp;
 }
 
-void filter_init(filter_s * fs, float * num_c, float * den_c,  int filter_order){
-    int i = 0 ;
-    fs->filter_order = filter_order ;
-    fs->number_filter_coeffs = filter_order + 1 ;
+void filter_init(Filter_t *f, int order, float *num, float *den, float *x_buffer, float *y_buffer) {
+    int i = 0;
+    f->order = order;
 
-    // Buffer init
-    for(i = 0 ; i < fs->filter_order; i ++){
-        fs->x_buffer[i] = 0.0f ;
-        fs->y_buffer[i] = 0.0f ;
-    }
-    // Coeff init
-    for(i = 0 ; i < fs->number_filter_coeffs; i ++){
-        fs->den_coeff[i] = den_c[i] ;
-        fs->num_coeff[i] = num_c[i] ;
+    /// Coefficients initialization.
+    f->den= den;
+    f->num= num;
+
+    f->x_buffer = x_buffer;
+    f->y_buffer = y_buffer;
+
+    // Buffer initialization.
+    for (i = 0; i < f->order; i++) {
+        f->x_buffer[i] = 0.0f;
+        f->y_buffer[i] = 0.0f;
     }
 }
+
+#ifdef __cplusplus
+}
+#endif

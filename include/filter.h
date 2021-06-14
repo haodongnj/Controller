@@ -1,23 +1,24 @@
-#ifndef FILTER_H_
-#define FILTER_H_
+#ifndef FILTER_H
+#define FILTER_H
 
-/**
- * Determine the maximum order of filters: MAX_NUMBER_FILTER_COEFFS - 1
- * Modify this macro definition as you need. 
-**/
-#define MAX_NUMBER_FILTER_COEFFS 4 
-#define MAX_FILTER_ORDER (MAX_NUMBER_FILTER_COEFFS-1)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-typedef struct filter_struct{
-    float num_coeff[MAX_NUMBER_FILTER_COEFFS] ;
-    float den_coeff[MAX_NUMBER_FILTER_COEFFS] ;
-    float x_buffer[MAX_FILTER_ORDER];
-    float y_buffer[MAX_FILTER_ORDER];
-    int filter_order ;
-    int number_filter_coeffs ;
-} filter_s ;
+typedef struct Filter {
+    float *num;
+    float *den;
+    float *x_buffer;
+    float *y_buffer;
+    int order;
+} Filter_t;
 
-float filter_calc(filter_s* fs, float input);
-void filter_init(filter_s * fs, float * num_c, float * den_c,  int filter_order);
+float filter_calc(Filter_t *f, float input);
+
+void filter_init(Filter_t *f, int order, float *num, float *den, float *x_buffer, float *y_buffer);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

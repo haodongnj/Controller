@@ -6,11 +6,11 @@ project(controller LANGUAGES CXX C)
 
 add_library(controller STATIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/filter.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/forc.c
+#        ${CMAKE_CURRENT_SOURCE_DIR}/src/forc.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/pi.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/pr.c
 #        ${CMAKE_CURRENT_SOURCE_DIR}/src/pwrc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/rc.c
+#        ${CMAKE_CURRENT_SOURCE_DIR}/src/rc.c
         )
 
 target_include_directories(controller PRIVATE
