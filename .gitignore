@@ -2,3 +2,4 @@
 *.exe
 .idea
 .vscode
+cmake-build-debug
