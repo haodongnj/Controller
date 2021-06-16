@@ -17,6 +17,7 @@ sin_input = sin(2 * 3.141592654 * 50 * t) ;
 
 hold on ;
 lsim(lp_filter_tf, sin_input, '--g')
-legend( 'C program','OCTAVE/MATLAB')
+legend( 'C API','OCTAVE');
+title('Comparison result of filter between C API and Octave')
 
 hold off ;
