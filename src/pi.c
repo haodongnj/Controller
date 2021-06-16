@@ -1,5 +1,9 @@
 #include <pi.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void pi_init(PI_t * s, float kp, float ki, float ts) {
     s->kp = kp ;
     s->ts = ts ;
@@ -16,3 +20,7 @@ float pi_calc(PI_t *s, float reference, float feedback) {
     s->output = s->sum_ki + s->kp * error ;
     return s->output ;
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,6 +1,10 @@
 #ifndef PI_H
 #define PI_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     float kp ;
     float ki ;
@@ -40,5 +44,9 @@ void pi_init(PI_t *s, float kp, float ki, float ts);
  * @return float Output of PI controller
  */
 float pi_calc(PI_t *s, float reference, float feedback);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
