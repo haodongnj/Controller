@@ -1,12 +1,7 @@
-/*************************************************************
-Author: Hao Dong
-Email:  hao.dong.nanjing@outlook.com
-*************************************************************/
-
 // This program is a test demo on PC.
-#include "../../include/pr.h"
-#include "math.h"
-#include "stdio.h"
+#include <math.h>
+#include <pr.h>
+#include <stdio.h>
 
 #define TS_Control 1e-4 // 100us control period
 #define NUM_ITERATIONS 20000 // 2 seconds
@@ -21,15 +16,15 @@ Email:  hao.dong.nanjing@outlook.com
  * @return int 
  */
 int main(void){
-    prStruct PR_Test ;
+    PR_t pr;
     float output = 0.0f , sin_wave = 0.0f ;
     FILE * fp ;
     fp = fopen("./test_pr_output.txt", "w+");
 
-    pr_init(&PR_Test, 0.0f, 10.0f, 6.28f, TS_Control);
+    pr_init(&pr, 0.0f, 10.0f, 6.28f, TS_Control);
     for(int i = 0 ; i < NUM_ITERATIONS; i ++ ){
         sin_wave = sin( 2 * 3.1415926 * 50 * i * TS_Control) ;
-        output = pr_calc(&PR_Test, sin_wave, 2 * 3.1415926 * 50.0) ;
+        output = pr_calc(&pr, sin_wave, 0, 2 * 3.1415926 * 50.0) ;
         fprintf(fp, "%f\t%f\n", TS_Control * i, output);
     }
     fclose(fp) ;

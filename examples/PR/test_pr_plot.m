@@ -1,4 +1,4 @@
-close all 
+close all;
 clear ;
 data = load('test_pr_output.txt') ;
 figure()
