@@ -1,34 +1,37 @@
-/*************************************************************
-Author: Hao Dong
-Date: 2018.06.23
-Email:  hao.dong.nanjing@gmail.com
-Note:   This is just a baseline implementation of simple 
-        Repetitive Controller
-*************************************************************/
+#include <rc.h>
 
-#include "../include/rc.h"
+#ifdef __cplusplus
+extern "C"{
+#endif
 
-float rc_buffer[NUM_SAMPLE_PER_CYCLE] ;
+void rc_init(RC_t *s, float q, float *buffer, int n){
+    int i ;
 
-void Init_RC(void){
-    int i = 0 ;
-    for(i = 0; i < NUM_SAMPLE_PER_CYCLE; i++ ){
-        rc_buffer[i] = 0.0f ;
+    s->q = q;
+    s->n_samples_per_cycle = n;
+    s->output_buffer = buffer;
+
+    for(i = 0; i < s->n_samples_per_cycle; i++ ){
+        s->output_buffer[i] = 0.0f ;
     }
+    s->counter = 0;
 }
 
-float Calc_RC(float sample){
-    static int rc_counter = 0 ;
-    float output = rc_buffer[rc_counter] ;
+float rc_calc(RC_t *s, float error){
+    float output = s->output_buffer[s->counter];
 
     // Simple implementation of Repetitive Controller 
-    // when Q is a constant smaller than 1 ;
-    rc_buffer[rc_counter] = QVALUE * (rc_buffer[rc_counter] + sample) ;
+    // when Q is a positive constant smaller than 1.
+    s->output_buffer[s->counter] = s->q * s->output_buffer[s->counter] + error ;
 
-    rc_counter ++ ;
-    if( rc_counter >= NUM_SAMPLE_PER_CYCLE){
-        rc_counter = 0 ;
+    s->counter ++;
+    if( s->counter >= s->n_samples_per_cycle){
+        s->counter = 0 ;
     }
 
     return output ;
 }
+
+#ifdef __cplusplus
+};
+#endif

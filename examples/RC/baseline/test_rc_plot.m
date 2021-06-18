@@ -1,0 +1,24 @@
+close all;
+clear ;
+data = load('test_rc_output.txt') ;
+
+% Octave transfer function
+pkg load control
+z = tf([1, 0], [1], 1e-4);
+q = 0.9;
+g_rc = z^(-200)/(1 - q * z ^(-200));
+input = sin(2 * pi * 50 * data(:,1));
+output = lsim(g_rc, input);
+close all;
+
+
+figure;
+plot(data(:, 1), output, '--g');
+hold on;
+
+% C API results
+plot(data(:, 1), data(:, 2), '--r') ;
+hold off; 
+
+legend('Ocatve', 'C API');
+title('RC validation')
