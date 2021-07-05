@@ -1,6 +1,8 @@
 #ifndef RC_H
 #define RC_H
 
+#include <filter.h>
+
 #ifdef __cplusplus
 extern "C"{
 #endif
@@ -14,6 +16,10 @@ typedef struct RC{
     int counter;
     /// number of samples per cycle
     int n_samples_per_cycle;
+
+    int lead_steps;
+    Filter_t *p_compensator;
+    float k;
 } RC_t;
 
 /**
@@ -22,8 +28,11 @@ typedef struct RC{
  * @param q q value of RC controller
  * @param buffer pointer to RC buffer
  * @param n number of samples per cycle
+ * @param lead_steps: lead_steps to compensate phase lag
+ * @param p_compensator: pointer to Filter_t struct instance;
+ *  If p_compensator is NULL, then no calculation is done for compensation filter.
  */
-void rc_init(RC_t *s, float q, float *buffer, int n);
+void rc_init(RC_t *s, float q, float *buffer, int n, int lead_steps, float k, Filter_t *p_compensator);
 
 /**
  * Calculate repetitive controller.
