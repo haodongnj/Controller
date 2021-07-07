@@ -1,6 +1,6 @@
-#include <PI.h>
+#include <pi.h>
 #include <math.h>
-#include <iostream>
+#include <stdio.h>
 
 #define NUMBER_ITERATIONS 200
 #define PI 3.141592654f 
