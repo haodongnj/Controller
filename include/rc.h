@@ -29,6 +29,7 @@ typedef struct RC{
  * @param buffer pointer to RC buffer
  * @param n number of samples per cycle
  * @param lead_steps: lead_steps to compensate phase lag
+ * @param k gain of RC
  * @param p_compensator: pointer to Filter_t struct instance;
  *  If p_compensator is NULL, then no calculation is done for compensation filter.
  */
