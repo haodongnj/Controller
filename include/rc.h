@@ -26,11 +26,11 @@ typedef struct RC{
  * Initialize repetitive controller.
  * @param s pointer to RC_t struct
  * @param q q value of RC controller
- * @param buffer pointer to RC buffer
- * @param n number of samples per cycle
- * @param lead_steps: lead_steps to compensate phase lag
+ * @param buffer pointer to RC buffer with a capacity more than n
+ * @param n number of samples per cycle and the minimum size of buffer
+ * @param lead_steps lead_steps to compensate phase lag
  * @param k gain of RC
- * @param p_compensator: pointer to Filter_t struct instance;
+ * @param p_compensator pointer to compensation filter;
  *  If p_compensator is NULL, then no calculation is done for compensation filter.
  */
 void rc_init(RC_t *s, float q, float *buffer, int n, int lead_steps, float k, Filter_t *p_compensator);
