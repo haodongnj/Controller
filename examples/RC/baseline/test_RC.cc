@@ -29,7 +29,7 @@ int main(){
     rc_init(&rc1, 0.9f, rc_buffer1, 200, 0, 1.0, NULL);
     rc_init(&rc2, 0.9f, rc_buffer2, 200, 25, 1.0, NULL);
 
-    filter_init(&compensator, 2, filter_den, filter_den, x_buffer, y_buffer);
+    filter_init(&compensator, 2, filter_num, filter_den, x_buffer, y_buffer);
     rc_init(&rc3, 0.9f, rc_buffer3, 200, 50, 0.5, &compensator);
 
     FILE *fp = fopen("./test_rc_output.txt", "w+");
