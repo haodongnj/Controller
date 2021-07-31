@@ -13,7 +13,7 @@ float y_buffer[4];
 
 int main(void){
 
-    FILE * fp_out = fopen("text_output.txt", "w") ;
+    FILE * fp_out = fopen("test_forc_output.txt", "w") ;
     if(fp_out == NULL){ 
         printf("Error creating file\r\n") ;
         exit(0) ;
@@ -25,10 +25,11 @@ int main(void){
     filter_init(&compensator, 2, filter_num, filter_den, x_buffer, y_buffer);
     init_forc(&forc, 0.9, buffer, 410, 25, 1.0, &compensator, 1e4);
 
-    for( int i = 0 ; i < 10e4 ; i ++){
-        sin_wave = sin( 2 * 3.1415926 * 49.5 * i * TS) ;
+    for( int i = 0 ; i < 10e3; i ++){
+        float time = i * TS;
+        sin_wave = sin( 2 * 3.1415926 * 49.5 * time) ;
         rc_output = calc_forc(&forc, sin_wave, 49.5);
-        fprintf(fp_out, "%f\r\n", rc_output) ;
+        fprintf(fp_out, "%f,%f,%f\n", time, sin_wave, rc_output) ;
     }
 
     fclose(fp_out) ;
