@@ -1,5 +1,9 @@
 #include <forc.h>
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 /**
  * Move forward index of an array.
  * @param cur_idx current index
@@ -7,25 +11,26 @@
  * @param n upper bound of index(open)
  * @return result index
  */
-static int idx_forward(int cur_idx, int steps_forward, int n){
+static int idx_forward(int cur_idx, int steps_forward, int n) {
     int idx = cur_idx + steps_forward;
 
-    while( idx >= n){
+    while (idx >= n) {
         idx -= n;
     }
 
     /// Necessary to check here.
-    while( idx < 0 ){
+    while (idx < 0) {
         idx += n;
     }
 
     return idx;
 }
 
-void init_forc(FORC_t *s, float q, float *buffer, int n, int lead_steps, float k, Filter_t *p_compensator, float f_control){
+void
+init_forc(FORC_t *s, float q, float *buffer, int n, int lead_steps, float k, Filter_t *p_compensator, float f_control) {
 
-    int i ;
-    for(i = 0 ; i < n; ++i){
+    int i;
+    for (i = 0; i < n; ++i) {
         buffer[i] = 0;
     }
 
@@ -58,8 +63,8 @@ void init_forc(FORC_t *s, float q, float *buffer, int n, int lead_steps, float k
     s->k = k;
 }
 
-float calc_forc(FORC_t *s, float error, float f){
-    int n, n_ceil, idx_left, idx, idx_delay_selected ;
+float calc_forc(FORC_t *s, float error, float f) {
+    int n, n_ceil, idx;
     float result = 0.0f, n_float = 0.0f;
     float w_left = 0.0f, w_right = 0.0f;
 
@@ -68,26 +73,30 @@ float calc_forc(FORC_t *s, float error, float f){
 
     n_float = s->f_control / f;
     n = (int) n_float;
-    n_ceil = n + 1 ;
+    n_ceil = n + 1;
 
     idx = idx_forward(s->idx_delay, -n + s->lead_steps + 1, s->max_steps_each_period - s->lead_steps);
 
-    w_left = n_float - (float)n;
-    w_right = (float)n_ceil - n_float;
+    w_left = n_float - (float) n;
+    w_right = (float) n_ceil - n_float;
 
     s->f_num[0] = w_right;
     s->f_num[1] = w_left;
 
     result = filter_calc(&(s->fractional_filter), s->delay_buf[idx]);
     result = filter_calc(&(s->q_filter), result);
-    s->q_output_buf[s->idx_q_output] =result;
+    s->q_output_buf[s->idx_q_output] = result;
 
     /// compensator: low-pass filter
-    result = filter_calc(s->p_compensator, result) ;
+    result = filter_calc(s->p_compensator, result);
 
     // update index:
     s->idx_delay = idx_forward(s->idx_delay, 1, s->max_steps_each_period - s->lead_steps);
     s->idx_q_output = idx_forward(s->idx_q_output, 1, s->lead_steps);
 
-    return result* s->k;
+    return result * s->k;
 }
+
+#ifdef __cplusplus
+}
+#endif
