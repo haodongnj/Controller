@@ -16,7 +16,7 @@ typedef struct FORC{
     int idx_q_output;
 
     int max_steps_each_period;
-    int f_control;
+    float f_control;
 
     Filter_t q_filter;
     float q_num[3];
