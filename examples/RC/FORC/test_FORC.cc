@@ -20,7 +20,7 @@ int main(void){
     }
 
     FORC_t forc;
-    float freq, rc_output, sin_wave ;
+    float rc_output, sin_wave ;
     float buffer[420];
     filter_init(&compensator, 2, filter_num, filter_den, x_buffer, y_buffer);
     init_forc(&forc, 0.9, buffer, 410, 25, 1.0, &compensator, 1e4);
