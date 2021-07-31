@@ -10,7 +10,7 @@ This repository contains implementation of 3 types of controllers:
    1. a baseline implementation
    2. FIR filter based frequency adaptive RC
 
-Every controller contains a [example](./example) folder for validation.
+Every controller contains an **examples** folder for validation.
 
 The code is very simple, so detailed explanation is only written for **[PR](https://haodongnj.github.io/haodongnj/post/pr-control/)** controller.
 
@@ -20,7 +20,7 @@ I implement the controller for control of LCL grid-connected inverters, feel fre
 
 ### PR
 
-Second order generalized integrator is used to implement resonant part. It is designed to be frequency-adaptive. Detailed explanation can be found [here](https://donghao2nanjing.github.io/2018/06/22/PR-control).
+Second order generalized integrator is used to implement resonant part. It is designed to be frequency-adaptive.
 
 ### RC
 
