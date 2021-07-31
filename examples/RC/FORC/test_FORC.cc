@@ -8,8 +8,8 @@
 Filter_t compensator;
 float filter_num[3] = {0, 0.00726436941467171, 0.00668055316076471};
 float filter_den[3] = {1, -1.76382275659635, 0.777767679171789};
-float x_buffer[4];
-float y_buffer[4];
+float x_buffer[3];
+float y_buffer[3];
 
 int main(void){
 
