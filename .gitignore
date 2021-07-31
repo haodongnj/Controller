@@ -1,2 +1,10 @@
 *.elf
-*/test/*.txt
+*.exe
+.idea
+.vscode
+*.a
+*.lib
+*.dll
+cmake-build-debug
+cmake-build-release
+build
