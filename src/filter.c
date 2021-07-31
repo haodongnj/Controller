@@ -14,7 +14,7 @@ float filter_calc(Filter_t *f, float input) {
     temp += f->num[0] * input;
     temp /= f->den[0];
 
-    for (i = f->order - 1; i > 0; i--) {
+    for (i = f->order; i > 0; i--) {
         f->x_buffer[i] = f->x_buffer[i - 1];
         f->y_buffer[i] = f->y_buffer[i - 1];
     }
