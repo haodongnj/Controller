@@ -14,7 +14,7 @@ Every controller contains an **examples** folder for validation.
 
 The code is very simple, so detailed explanation is only written for **[PR](https://haodongnj.github.io/haodongnj/post/pr-control/)** controller.
 
-I implement the controller for control of LCL grid-connected inverters, feel free to use the code for your own specific application at your own risk.
+I implemented the controllers for control of LCL grid-connected inverters at college for experiments. Feel free to use the code for your own specific application at your own risk.
 
 ## Implementation
 
