@@ -28,6 +28,7 @@ Second order generalized integrator is used to implement resonant part. It is de
 - FORC: an implementation of Fractional Order Repetitive Control. References:
   - [An Improved Repetitive Control Scheme for Grid-Connected Inverter With Frequency-Adaptive Capability](https://ieeexplore.ieee.org/abstract/document/6221989)
   - [Frequency-Adaptive Fractional-Order Repetitive Control of Shunt Active Power Filters](https://ieeexplore.ieee.org/abstract/document/6926800)
+- PWRC: Phase Weighting Repetitive Control: a phase based frequency adaptive repetitive control.
 
 ## Contribution
 
