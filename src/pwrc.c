@@ -32,7 +32,7 @@ static int is_in_phase_interval(float phase, float lower_phase, float higher_pha
   if(lower_phase < higher_phase){
     return (phase >= lower_phase) && (phase < higher_phase);
   }else{
-    return (phase < lower_phase) || (phase > higher_phase);
+    return (phase >= lower_phase) || (phase < higher_phase);
   }
 }
 
@@ -83,7 +83,6 @@ float calc_pwrc(PWRC_t *s, float error, float cur_phase, int flag_actuation){
   float c_k = 0.0f, c_k_minus_1 = 0.0f, c_weighted = 0.0f;
   float g_k = 0.0f;
   float phase_diff = 0.0f;
-  int last_phase_idx = idx_forward(s->cur_idx, -1, s->n);
 
   s->phase_buf[s->cur_idx] = cur_phase;
 
