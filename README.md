@@ -9,6 +9,7 @@ This repository contains implementation of 3 types of controllers:
 3. repetitive controller
    1. a baseline implementation
    2. FIR filter based frequency adaptive RC
+   3. phase weighting repetitive control
 
 Every controller contains an **examples** folder for validation.
 
