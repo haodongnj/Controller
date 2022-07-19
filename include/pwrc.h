@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+#define PWRC_DOUBLE_PI  6.283185307179586f
+
 typedef struct PWRC {
   float *delay_buf;
   float *q_output_buf;

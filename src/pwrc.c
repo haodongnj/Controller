@@ -4,9 +4,8 @@
 extern "C"{
 #endif
 
-#define PHASE_LOW_MARK_POSITION 3.1415926f
-#define PHASE_HIGH_MARK_POSITION (3.1415926f+0.016f)
-#define PWRC_DOUBLE_PI  6.283185307179586f
+#define PWRC_PHASE_LOW_MARK_POSITION 3.1415926f
+#define PWRC_PHASE_HIGH_MARK_POSITION (3.1415926f+0.016f)
 
 static int idx_forward(int cur_idx, int step, int n_wrap){
   int result_idx = cur_idx + step;
@@ -91,7 +90,7 @@ float calc_pwrc(PWRC_t *s, float error, float cur_phase, int flag_actuation){
   }
 
   if(s->cnt_phase_pass_mark_position < 2){
-    if(is_in_interval(cur_phase, PHASE_LOW_MARK_POSITION, PHASE_HIGH_MARK_POSITION)) {
+    if(is_in_interval(cur_phase, PWRC_PHASE_LOW_MARK_POSITION, PWRC_PHASE_HIGH_MARK_POSITION)) {
       if (s->cnt_avoid_twice_marking == 0) {
         s->cnt_phase_pass_mark_position += 1;
         s->cnt_avoid_twice_marking = 5;
