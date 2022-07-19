@@ -4,10 +4,16 @@
 extern "C"{
 #endif
 
-#define PHASE_LOW_MARK_POSITION 3.1415926f
-#define PHASE_HIGH_MARK_POSITION (3.1415926f+0.016f)
-#define PWRC_DOUBLE_PI  6.283185307179586f
+#define PWRC_PHASE_LOW_MARK_POSITION 3.1415926f
+#define PWRC_PHASE_HIGH_MARK_POSITION (3.1415926f+0.016f)
 
+/**
+ * index forward
+ * @param cur_idx current index
+ * @param step step to forward, negative means stepping backward
+ * @param n_wrap size of circular buffer
+ * @return result index
+ */
 static int idx_forward(int cur_idx, int step, int n_wrap){
   int result_idx = cur_idx + step;
   while(result_idx >= n_wrap){
@@ -20,14 +26,13 @@ static int idx_forward(int cur_idx, int step, int n_wrap){
   return result_idx;
 }
 
-static int is_in_interval(float phase, float lower_bound, float higher_bound){
-  if(phase < lower_bound || phase > higher_bound){
-    return 0;
-  }else{
-    return 1;
-  }
-}
-
+/**
+ * judge is phase is in the range of given interval, considering wrapping condition
+ * @param phase input phase
+ * @param lower_phase lower bound, included
+ * @param higher_phase higher bound, excluded
+ * @return 1 if phase is in the given range otherwise 0
+ */
 static int is_in_phase_interval(float phase, float lower_phase, float higher_phase){
   if(lower_phase < higher_phase){
     return (phase >= lower_phase) && (phase < higher_phase);
@@ -91,7 +96,7 @@ float calc_pwrc(PWRC_t *s, float error, float cur_phase, int flag_actuation){
   }
 
   if(s->cnt_phase_pass_mark_position < 2){
-    if(is_in_interval(cur_phase, PHASE_LOW_MARK_POSITION, PHASE_HIGH_MARK_POSITION)) {
+    if(is_in_phase_interval(cur_phase, PWRC_PHASE_LOW_MARK_POSITION, PWRC_PHASE_HIGH_MARK_POSITION)) {
       if (s->cnt_avoid_twice_marking == 0) {
         s->cnt_phase_pass_mark_position += 1;
         s->cnt_avoid_twice_marking = 5;
